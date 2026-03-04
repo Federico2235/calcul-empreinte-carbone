@@ -100,3 +100,22 @@ Afficher cette quantité de CO2 dans le composant carbon-footprint
 Retourner la quantité totale de CO2 dans la méthode getResumeVoyages() grâce à un attribut quantiteCO2Totale
 Afficher cette quantité totale de CO2 dans le composant carbon-footprint
 Calculer la quantité de CO2 par voyage avec la formule suivante : quantiteCO2 = (distanceKm * consommationPour100Km) / 100 * 2.3
+
+
+
+
+
+Mettre en place des formulaires pour permettre à l'utilisateur de se logger, de saisir de nouveaux voyages.
+
+
+Niveau 2
+Ajouter un formulaire sur le composant carbon-footprint-form qui permet à l'utilisateur de saisir un nouveau voyage
+Un voyage est une distance (> 0), une consommation pour 100 kms (> 0) et une date
+Appeler la méthode addVoyage du service CarbonFootprintComputeService pour ajouter le voyage
+Niveau 3
+Ajouter une liste déroulant avec le type de voyage voiture, train ou avion dans le composant carbon-footprint-form
+Dans le cas d'un voyage en voiture, on demande la consommation pour 100 kms, pas dans le cas d'un voyage en train ou en avion
+Modifier la formule de calcul du service carbon-footprint-compute pour calculer l'empreinte carbone en fonction du type de voyage est la suivante :
+voiture : quantiteCO2 = (distanceKm * consommationPour100Km) / 100 * 2.3
+train : quantiteCO2 = distanceKm * 0.03
+avion : quantiteCO2 = distanceKm * 0.2

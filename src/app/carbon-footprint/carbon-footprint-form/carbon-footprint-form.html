@@ -1,1 +1,49 @@
-<p>carbon-footprint-form works!</p>
+<article>
+  <h2>Ajouter un voyage</h2>
+
+  <form [formGroup]="form" (submit)="addVoyage(form.value.distance ,form.value.conso,form.value.transport)">
+    <label for="distance">Distance</label>
+    <input id="distance" name="distance" type="number" formControlName="distance">
+    @if (form.get('distance')?.dirty || form.get('date')?.touched) {
+      @if (form.get('distance')?.hasError('min')) {
+        <p class="error">La distance doit être superior a 0</p>
+
+      }
+    }
+    @if (form.value.transport === 'voiture') {
+      <label for="conso">Consomation</label>
+      <input id="conso" name="conso" type="number" formControlName="conso">
+      @if (form.get('conso')?.dirty || form.get('conso')?.touched) {
+        @if (form.get('conso')?.hasError('min')) {
+          <p class="error">La consomation per 100km doit être superior a 0</p>
+
+        }
+      }
+    }
+    <label for="date">Date</label>
+    <input type="date" id="date" name="date" formControlName="date">
+    @if (form.get('date')?.dirty || form.get('date')?.touched) {
+      @if (form.get('date')?.hasError('greaterThan')) {
+        <p class="error">Le champ n'est pas valide!</p>
+      }
+      @if (form.get('date')?.hasError('required')) {
+        <p class="error">Le champ est requis!</p>
+      }
+    }
+
+    <label for="transport">Type de transport</label>
+    <select name="transport" id="transport" formControlName="transport">
+      <option value="train">Train</option>
+      <option value="voiture">Voiture</option>
+      <option value="avion">Avion</option>
+    </select>
+
+
+    <button type="submit">Ajouter voyage</button>
+  </form>
+</article>
+
+
+<!--Ajouter un formulaire sur le composant carbon-footprint-form qui permet à l'utilisateur de saisir un nouveau voyage-->
+<!--Un voyage est une distance (> 0), une consommation pour 100 kms (> 0) et une date-->
+<!--Appeler la méthode addVoyage du service CarbonFootprintComputeService pour ajouter le voyage-->

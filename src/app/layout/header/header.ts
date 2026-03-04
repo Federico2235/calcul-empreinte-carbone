@@ -22,9 +22,7 @@ export class Header {
 
 
 
-  protected goToProfile() {
-    this.router.navigate(["profile/jean"])
-  }
+
 
   public goToCfP() {
     this.router.navigate(["/cfp"])

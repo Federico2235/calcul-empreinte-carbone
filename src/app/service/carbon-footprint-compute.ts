@@ -40,6 +40,33 @@ export class CarbonFootprintCompute {
   }
 
 
+  public addTravelPerso(dist:number,conso:number,transport:string) {
+    const distance = dist
+    let consumptionPer100 =conso
+    let CFP =0
+
+    switch (transport){
+      case "voiture": CFP=this.calculeV(dist,conso);
+      break;
+      case "train": CFP=this.calculeT(dist);
+                    consumptionPer100=0;
+        break;
+      case "avion": CFP=this.calculeA(dist)
+        consumptionPer100=0;
+
+        break;
+      default: null
+
+    }
+
+    this.travels.push({
+      distance: distance,
+      consumptionPer100: consumptionPer100,
+      cFp:CFP
+    })
+  }
+
+
   // Niveau 2
   // Créer une méthode getResumeVoyages() qui renvoie un objet composé de deux valeurs : la distance totale en km et la consommation moyenne
 
@@ -60,6 +87,21 @@ export class CarbonFootprintCompute {
     return {distT, consM, quantiteCO2Totale}
   }
 
+  public calculeV(distance:number,conso:number){
+    return (distance * conso) / 100 * 2.3
+  }
+  public calculeT(distance:number){
+    return distance * 0.03
+  }
+  public calculeA(distance:number){
+    return distance * 0.2
+  }
 
+  // Ajouter une liste déroulant avec le type de voyage voiture, train ou avion dans le composant carbon-footprint-form
+  // Dans le cas d'un voyage en voiture, on demande la consommation pour 100 kms, pas dans le cas d'un voyage en train ou en avion
+  // Modifier la formule de calcul du service carbon-footprint-compute pour calculer l'empreinte carbone en fonction du type de voyage est la suivante :
+  // voiture : quantiteCO2 = (distanceKm * consommationPour100Km) / 100 * 2.3
+  // train : quantiteCO2 = distanceKm * 0.03
+  // avion : quantiteCO2 = distanceKm * 0.2
 }
 

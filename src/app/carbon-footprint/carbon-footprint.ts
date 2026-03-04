@@ -1,11 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {CarbonFootprintCompute} from '../service/carbon-footprint-compute';
+import {CarbonFootprintForm} from './carbon-footprint-form/carbon-footprint-form';
 
 @Component({
   selector: 'app-carbon-footprint',
   imports: [
-    DecimalPipe
+    DecimalPipe,
+    CarbonFootprintForm
   ],
   templateUrl: './carbon-footprint.html',
   styleUrl: './carbon-footprint.css',
