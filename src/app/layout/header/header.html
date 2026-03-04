@@ -1,3 +1,28 @@
 <header>
-<h1>Bienvenue {{userName}}</h1>
+
+  <nav>
+<ul>
+  <li> <button (click)="goToCfP()">CarbonFootPrint</button></li>
+  <li><button (click)="goToProfile()">Profile</button> </li>
+  @if (isLogged){
+  <li><button (click)="logout()">LogOut</button></li>
+  } @else {
+  <li>   <button (click)="login()">LogIn</button></li>
+  }
+</ul>
+
+
+
+
+
+
+
+
+
+  </nav>
+  @if (username) {
+    <H1>Bienvenue {{username}}</H1>
+  }
+
+
 </header>
