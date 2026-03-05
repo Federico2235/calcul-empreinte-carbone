@@ -1,7 +1,7 @@
 <article>
   <h2>Ajouter un voyage</h2>
 
-  <form [formGroup]="form" (submit)="addVoyage(form.value.distance ,form.value.conso,form.value.transport)">
+  <form [formGroup]="form" (submit)="addVoyage(form.value.distance ,form.value.conso,form.value.transport,form.value.date)">
     <label for="distance">Distance</label>
     <input id="distance" name="distance" type="number" formControlName="distance">
     @if (form.get('distance')?.dirty || form.get('date')?.touched) {

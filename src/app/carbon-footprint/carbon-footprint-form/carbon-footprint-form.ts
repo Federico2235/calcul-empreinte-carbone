@@ -21,9 +21,27 @@ export class CarbonFootprintForm {
         distance: new FormControl('', [Validators.min(0), Validators.required]),
         conso: new FormControl('', [Validators.min(0), Validators.required]),
         date: new FormControl('', [Validators.required,this.dateValidator]),
-        transport: new FormControl('voiture',[Validators.required])
+        transport: new FormControl('voiture',[Validators.required,Validators.pattern(/^(voiture|train|avion)$/)])
       }
     )
+
+
+    // comment utiliser observarbles
+  //   this.form.get('travelType')?.valueChanges.subscribe(
+  //     value => {
+  //       const consumptionControl = this.form.get('conso')
+  //       if (value === 'voiture') {
+  //         consumptionControl?.setValidators([Validators.required, Validators.min(1)])
+  //       } else {
+  //         consumptionControl?.clearValidators()
+  //         consumptionControl?.setValue(null)
+  //       }
+  //       consumptionControl?.updateValueAndValidity()
+  //     }
+  //   )
+  // }
+
+
   }
 
 
@@ -36,9 +54,11 @@ export class CarbonFootprintForm {
     return null
   }
 
-  protected addVoyage(dist: number, conso: number,transport:string){
-    this.serviceCfc.addTravelPerso(dist,conso,transport)
+  protected addVoyage(dist: number, conso: number,transport:string,date:Date){
+   if (this.form.valid){
+    this.serviceCfc.addTravelPerso(dist,conso,transport,date)
     this.cfp.calculateDistanceAndConsumption()
+   }
   }
 
 }

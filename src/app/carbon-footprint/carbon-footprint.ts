@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {DecimalPipe} from '@angular/common';
+import {DatePipe, DecimalPipe} from '@angular/common';
 import {CarbonFootprintCompute} from '../service/carbon-footprint-compute';
 import {CarbonFootprintForm} from './carbon-footprint-form/carbon-footprint-form';
 
@@ -7,7 +7,8 @@ import {CarbonFootprintForm} from './carbon-footprint-form/carbon-footprint-form
   selector: 'app-carbon-footprint',
   imports: [
     DecimalPipe,
-    CarbonFootprintForm
+    CarbonFootprintForm,
+    DatePipe
   ],
   templateUrl: './carbon-footprint.html',
   styleUrl: './carbon-footprint.css',
@@ -17,12 +18,13 @@ export class CarbonFootprint {
   public quantiteCO2Totale: number
   public distance: number
   public consumptionPer100: number
-  public travels: { distance: number, consumptionPer100: number, cFp: number }[]
+  public travels: { distance: number, consumptionPer100: number | null, cFp: number, date: Date, transport: string }[]
 
   constructor(private carbonService: CarbonFootprintCompute) {
     this.quantiteCO2Totale = carbonService.getResumeVoyages().quantiteCO2Totale
     this.distance = carbonService.getResumeVoyages().distT;
     this.consumptionPer100 = carbonService.getResumeVoyages().consM;
+
     this.travels = carbonService.getTravels()
 
   }
@@ -40,14 +42,13 @@ export class CarbonFootprint {
 
   public calculateDistanceAndConsumption() {
 
-    const result =this.carbonService.getResumeVoyages()
-
+    const result = this.carbonService.getResumeVoyages()
 
 
     this.distance = result.distT
 
     this.consumptionPer100 = result.consM
-    this.quantiteCO2Totale= result.quantiteCO2Totale
+    this.quantiteCO2Totale = result.quantiteCO2Totale
   }
 
 

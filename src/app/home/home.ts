@@ -28,6 +28,7 @@ export class Home {
     this.checkPsw();
 
     if (!this.userError && !this.passwordError) {
+      this.user.login()
       this.router.navigate(["profile/jean"]);
     }
 

@@ -1,1 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
+/* ===== Fondo kitsch ===== */
+/* ===== Fondo retro neon ===== */
+body {
+  background: radial-gradient(circle at 20% 20%, #1a1a2e, #000000);
+  color: #eaeaea;
+  font-family: "Trebuchet MS", system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* grid retro */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,255,0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ===== Container ===== */
+.container {
+  background: #111;
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow:
+    0 0 20px #00ffff,
+    inset 0 0 20px rgba(0,255,255,0.2);
+}
+
+/* ===== Titulos ===== */
+h1, h2, h3 {
+  color: #00ffff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow:
+    0 0 5px #00ffff,
+    0 0 15px #00ffff;
+}
+
+/* ===== Tabla ===== */
+table {
+  background: #0a0a0a;
+}
+
+th {
+  background: linear-gradient(90deg, #ff7a00, #ff2a6d);
+  color: black;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background: #111;
+}
+
+tr:hover {
+  background: #1a1a1a;
+  box-shadow: inset 0 0 10px #00ffff;
+}
+
+/* ===== Botones ===== */
+button {
+  background: linear-gradient(45deg, #ff7a00, #ff2a6d);
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ff2a6d;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ff2a6d;
+}
+
+/* ===== Inputs ===== */
+input, select {
+  background: #000;
+  border: 2px solid #00ffff;
+  color: #eaeaea;
+}
+
+input:focus {
+  box-shadow: 0 0 10px #00ffff;
+}

@@ -1,7 +1,7 @@
-
 <section>
   <article>
-    <h2 [style]="{'color':consumptionPer100>7?'red':'green'}">Consomation pour 100 Km : {{ consumptionPer100 | number : '1.2-2'   }}</h2>
+    <h2 [style]="{'color':consumptionPer100>7?'red':'green'}">Consomation pour 100 Km
+      : {{ consumptionPer100 | number : '1.2-2' }}</h2>
 
     <h2 [class]="{'haute-distance':distance > 500, 'basse-distance':distance < 100}">Kilometres parcourus
       : {{ distance }}</h2>
@@ -17,33 +17,37 @@
   } @else if (consumptionPer100 < 4) {
     <span>Félicitations, votre consommation est faible</span>
   }
-
+<BR>
   <button (click)="add100km()">Ajouter 100 km</button>
   <br>
-<article>
+  <article>
 
-  <h2>Liste des voyages</h2>
-  <br>
-  <button (click)="addVoyage()">Generer voyage</button>
-  <br>
-  <table>
-    <thead>
-    <tr>
-      <th>Distance</th>
-      <th>Consommation pour 100 kms</th>
-      <th>Quantite CO2</th>
-    </tr>
-    </thead>
-    <tbody>
-      @for (v of travels; track $index) {
-        <tr>
-          <td>{{ v.distance }}</td>
-          <td>{{ v.consumptionPer100 }}</td>
-          <td>{{v.cFp}}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</article>
+    <h2>Liste des voyages</h2>
+    <br>
+    <button (click)="addVoyage()">Generer voyage</button>
+    <br>
+    <table>
+      <thead>
+      <tr>
+        <th>Distance</th>
+        <th>Consommation pour 100 kms</th>
+        <th>Quantite CO2</th>
+        <th>Date</th>
+        <th>Type de transport</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (v of travels; track $index) {
+          <tr>
+            <td>{{ v.distance }}</td>
+            <td>{{ v.consumptionPer100 ?? '_' }}</td>
+            <td>{{ v.cFp }}</td>
+            <td>{{ v.date | date :'dd/MM/yyyy' }}</td>
+            <td>{{ v.transport }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </article>
 </section>
 <app-carbon-footprint-form></app-carbon-footprint-form>
