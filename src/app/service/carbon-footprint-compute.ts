@@ -1,5 +1,7 @@
-import {Injectable} from '@angular/core';
+import {ChangeDetectorRef, Injectable} from '@angular/core';
 import {Travel} from '../model/travel';
+import {ApiService} from './api-service';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,26 +10,26 @@ export class CarbonFootprintCompute {
 
   public distance: number
   public consumptionPer100: number|null
-  private travels: Travel[]=[]
+  private travels: Travel | undefined
+  private travel: Travel[]=[]
 
-
-  constructor() {
+  constructor(private api:ApiService) {
     this.distance = 0
     this.consumptionPer100 = 0
-    this.travels = [
-      { distance: 50, consumptionPer100: 5, cFp: 12, date: new Date("2026-03-01"), transport: "voiture" },
-      { distance: 150, consumptionPer100: 6, cFp: 25, date: new Date("2026-03-02"), transport: "voiture" },
-      { distance: 250, consumptionPer100: 7, cFp: 35, date: new Date("2026-03-03"), transport: "voiture" },
-      { distance: 350, consumptionPer100: 8, cFp: 45, date: new Date("2026-03-04"), transport: "voiture" },
-      { distance: 450, consumptionPer100: 9, cFp: 60, date: new Date("2026-03-05"), transport: "voiture" }
-    ];
+    // this.travels = [
+    //   { distance: 50, consumptionPer100: 5, cFp: 12, date: new Date("2026-03-01"), transport: "voiture" },
+    //   { distance: 150, consumptionPer100: 6, cFp: 25, date: new Date("2026-03-02"), transport: "voiture" },
+    //   { distance: 250, consumptionPer100: 7, cFp: 35, date: new Date("2026-03-03"), transport: "voiture" },
+    //   { distance: 350, consumptionPer100: 8, cFp: 45, date: new Date("2026-03-04"), transport: "voiture" },
+    //   { distance: 450, consumptionPer100: 9, cFp: 60, date: new Date("2026-03-05"), transport: "voiture" }
+    // ];
 
   }
 
   // Créer une méthode getVoyages() qui renvoie un tableau de voyages
 
-  getTravels() {
-    return this.travels
+  public getTravels() {
+    return this.api.getTravels()
   }
 
   // Créer une méthode addVoyage(voyage) qui ajoute un voyage au tableau
@@ -35,7 +37,7 @@ export class CarbonFootprintCompute {
     const distance = Math.round(Math.random() * 1000 + 1)
     const consumptionPer100 = Math.round(Math.random() * 10 + 1)
     const date=new Date()
-    this.travels.push({
+    this.travel.push({
       distance: distance,
       consumptionPer100: consumptionPer100,
       cFp: (distance * consumptionPer100) / 100 * 2.3,
@@ -67,7 +69,7 @@ export class CarbonFootprintCompute {
 
     }
 
-    this.travels.push({
+    this.travel.push({
       distance: distance,
       consumptionPer100: consumptionPer100,
       cFp:CFP,
@@ -81,15 +83,15 @@ export class CarbonFootprintCompute {
 
   getResumeVoyages() {
 
-    const distT = this.travels.reduce(
+    const distT = this.travel.reduce(
       (acc, travel) => acc + travel.distance, 0
     )
 
-    const consM = this.travels.reduce(
+    const consM = this.travel.reduce(
       (acc, travel) => acc + travel.consumptionPer100!!, 0
-    ) / this.travels.length
+    ) / this.travel.length
 
-    const quantiteCO2Totale = this.travels.reduce(
+    const quantiteCO2Totale = this.travel.reduce(
       (acc, travel) => acc + travel.cFp, 0
     )
 

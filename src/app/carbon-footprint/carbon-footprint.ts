@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {CarbonFootprintCompute} from '../service/carbon-footprint-compute';
 import {CarbonFootprintForm} from './carbon-footprint-form/carbon-footprint-form';
+import {Travel} from '../model/travel';
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -18,14 +19,17 @@ export class CarbonFootprint {
   public quantiteCO2Totale: number
   public distance: number
   public consumptionPer100: number
-  public travels: { distance: number, consumptionPer100: number | null, cFp: number, date: Date, transport: string }[]
-
-  constructor(private carbonService: CarbonFootprintCompute) {
+  public travels:Travel[]=[]
+  public trav:any
+  constructor(private carbonService: CarbonFootprintCompute, private cdr : ChangeDetectorRef) {
     this.quantiteCO2Totale = carbonService.getResumeVoyages().quantiteCO2Totale
     this.distance = carbonService.getResumeVoyages().distT;
     this.consumptionPer100 = carbonService.getResumeVoyages().consM;
 
-    this.travels = carbonService.getTravels()
+  this.carbonService.getTravels().subscribe(data=>{
+  this.travels=data
+    this.cdr.detectChanges()
+  })
 
   }
 
