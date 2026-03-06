@@ -1,30 +1,30 @@
 <section>
-  <article>
-    <h2 [style]="{'color':consumptionPer100>7?'red':'green'}">Consomation pour 100 Km
-      : {{ consumptionPer100 | number : '1.2-2' }}</h2>
+<!--  <article>-->
+<!--    <h2 [style]="{'color':consumptionPer100>7?'red':'green'}">Consomation pour 100 Km-->
+<!--      : {{ consumptionPer100 | number : '1.2-2' }}</h2>-->
 
-    <h2 [class]="{'haute-distance':distance > 500, 'basse-distance':distance < 100}">Kilometres parcourus
-      : {{ distance }}</h2>
+<!--    <h2 [class]="{'haute-distance':distance > 500, 'basse-distance':distance < 100}">Kilometres parcourus-->
+<!--      : {{ distance }}</h2>-->
 
-    <h2>Consomatio total: {{ (consumptionPer100 / 100) * distance  | number : '1.2-2' }} </h2>
-    <h2> Quantite CO2 Totale: {{ quantiteCO2Totale | number : '1.2-2' }} </h2>
+<!--    <h2>Consomatio total: {{ (consumptionPer100 / 100) * distance  | number : '1.2-2' }} </h2>-->
+<!--    <h2> Quantite CO2 Totale: {{ quantiteCO2Totale | number : '1.2-2' }} </h2>-->
 
 
-  </article>
+<!--  </article>-->
 
-  @if (consumptionPer100 > 7) {
-    <span>Attention, votre consommation est élevée..C'est la fin au monde!!!!!</span>
-  } @else if (consumptionPer100 < 4) {
-    <span>Félicitations, votre consommation est faible</span>
-  }
-<BR>
-  <button (click)="add100km()">Ajouter 100 km</button>
-  <br>
+<!--  @if (consumptionPer100 > 7) {-->
+<!--    <span>Attention, votre consommation est élevée..C'est la fin au monde!!!!!</span>-->
+<!--  } @else if (consumptionPer100 < 4) {-->
+<!--    <span>Félicitations, votre consommation est faible</span>-->
+<!--  }-->
+<!--<BR>-->
+<!--  <button (click)="add100km()">Ajouter 100 km</button>-->
+<!--  <br>-->
   <article>
 
     <h2>Liste des voyages</h2>
     <br>
-    <button (click)="addVoyage()">Generer voyage</button>
+<!--    <button (click)="addVoyage()">Generer voyage</button>-->
     <br>
     <table>
       <thead>
@@ -37,15 +37,21 @@
       </tr>
       </thead>
       <tbody>
-        @for (v of travels; track $index) {
+
+
+        @for (v of travels(); track $index) {
           <tr>
             <td>{{ v.distance }}</td>
             <td>{{ v.consumptionPer100 ?? '_' }}</td>
             <td>{{ v.cFp }}</td>
             <td>{{ v.date | date :'dd/MM/yyyy' }}</td>
-            <td>{{ v.transport }}</td>
+            @if (v.transport==="car"){
+              <td>Voiture</td>} @else {
+              <td>{{ v.transport }}</td>
+            }
           </tr>
         }
+
       </tbody>
     </table>
   </article>

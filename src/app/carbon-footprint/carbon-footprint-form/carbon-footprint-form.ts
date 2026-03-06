@@ -57,7 +57,8 @@ export class CarbonFootprintForm {
   protected addVoyage(dist: number, conso: number,transport:string,date:Date){
    if (this.form.valid){
     this.serviceCfc.addTravelPerso(dist,conso,transport,date)
-    this.cfp.calculateDistanceAndConsumption()
+     this.serviceCfc.getTravels()
+    // this.cfp.calculateDistanceAndConsumption()
    }
   }
 
